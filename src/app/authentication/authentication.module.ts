@@ -12,7 +12,6 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
-import { MatMomentDateModule, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 @NgModule({
   declarations: [
@@ -36,9 +35,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, 
-    { provide: DateAdapter, useClass: MatMomentDateModule ? MomentDateAdapter : MatNativeDateModule },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },     
   ],
 })
 export class AuthenticationModule { }

@@ -6,14 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit{
+  isSidebarOpen = true;
+  
   ngOnInit(): void {
-    console.log('aasas');
+    
   }
 
-  isSidebarOpen = true;
+  
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;    
+  toggleSidebar(): void {
+    
+    this.isSidebarOpen = !this.isSidebarOpen;
+    
   }
 
 }

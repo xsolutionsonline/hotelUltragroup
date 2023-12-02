@@ -1,3 +1,4 @@
+$primary-color: #673ab7;
 :host {
     display: block;
     height: 100vh;
@@ -16,6 +17,7 @@
     width: 240px;
     overflow: auto;
     z-index: 1;
+    background: linear-gradient(to bottom, $primary-color, #8f508aa3); 
   }
   
   app-footer {

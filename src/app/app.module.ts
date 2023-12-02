@@ -15,22 +15,31 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AuthenticationGuard } from './core/authentication.guard';
 import { AuthenticationService } from './core/authentication.service';
-
+import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
+import { HotelAdministrationModule } from './hotel-administration/hotel-administration.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DashboardModule,
     AuthenticationModule,
+    HotelAdministrationModule,
     AppRoutingModule,
     HttpClientModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    
 
   ],
   providers: [
@@ -42,6 +51,6 @@ import { AuthenticationService } from './core/authentication.service';
     AuthenticationGuard,
     AuthenticationService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ import { AuthenticationGuard } from './core/authentication.guard';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./shared/components/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate: [AuthenticationGuard] },
+  { path: 'register-hotel', loadChildren: () => import('./hotel-administration/hotel-administration.module').then(m => m.HotelAdministrationModule),canActivate: [AuthenticationGuard] },
   { path: 'login', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},
   { path: 'register', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

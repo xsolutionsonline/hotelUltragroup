@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationGuard } from 'src/app/core/authentication.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent,canActivate: [AuthenticationGuard] }
+  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthenticationGuard] }
 ];
 
 @NgModule({

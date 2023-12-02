@@ -1,6 +1,9 @@
+$primary-color: #673ab7;
+
 html,
 body {
   height: 100%;
+  background-color: rgb(218, 216, 216);
 }
 
 body {
@@ -11,6 +14,23 @@ body {
 .error-message {
   color: whitesmoke;
   font-size: 12px;
-  margin-top: 4px;
   background-color: rgba(0, 0, 0, 0.322);
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+}
+
+.form-card {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 2.22);
+}
+
+.mat-card-header {
+  background-color: $primary-color;
 }

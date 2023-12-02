@@ -1,42 +1,42 @@
 <div class="login-container">
-    <mat-card class="login-card">
-      <mat-card-header>
-        <mat-card-title>
-          <img src="logo.png" alt="" width="80" height="80" class="logo">
-          Iniciar Sesión
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="loginForm">
-          <div class="fields-container">
-            <mat-form-field>
-                <mat-label class="label-login">Email</mat-label>
-                <input matInput type="email"  formControlName="email">
-                <mat-icon matPrefix>person</mat-icon>
-              </mat-form-field>
-              <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="error-message">
-                El campo de correo electrónico es obligatorio.
-              </div>
-              <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="error-message">
-                Por favor, introduce un correo electrónico válido.
-              </div>
-          </div>
-          <div class="fields-container">
-            <mat-form-field >
-                <mat-label class="label-login">Contraseña</mat-label>
-                <input matInput type="password" formControlName="password" >
-                <mat-icon matPrefix>lock</mat-icon>
-              </mat-form-field>
-              <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="error-message">
-                El campo de contraseña es obligatorio.
-              </div>
-          </div>
-          <button mat-raised-button color="primary" (click)="login()" [disabled]="loginForm.invalid">Iniciar Sesión</button>
-        </form>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button routerLink="/register" ><p class="register-button">Registrarse</p></button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <img src="logo.png" alt="" width="80" height="80" class="logo">
+        Iniciar Sesión
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+        <div class="fields-container">
+          <mat-form-field>
+            <mat-label class="label-login">Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched"
+              class="error-message">El campo de correo electrónico es obligatorio.</mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched"
+              class="error-message"> Por favor, introduce un correo electrónico válido.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="fields-container">
+          <mat-form-field>
+            <mat-label class="label-login">Contraseña</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"
+              class="error-message">El campo de contraseña es obligatorio.</mat-error>
+          </mat-form-field>
+
+        </div>
+        <button mat-raised-button color="primary" (click)="login()" [disabled]="loginForm.invalid">Iniciar
+          Sesión</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button routerLink="/register">
+        <p class="register-button">Registrarse</p>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

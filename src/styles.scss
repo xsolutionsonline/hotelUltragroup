@@ -1,12 +1,16 @@
+html,
+body {
+  height: 100%;
+}
 
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .error-message {
-    color: whitesmoke;
-    font-size: 12px;
-    margin-top: 4px;
-    background-color: rgba(0, 0, 0, 0.322);
-  }
+  color: whitesmoke;
+  font-size: 12px;
+  margin-top: 4px;
+  background-color: rgba(0, 0, 0, 0.322);
+}

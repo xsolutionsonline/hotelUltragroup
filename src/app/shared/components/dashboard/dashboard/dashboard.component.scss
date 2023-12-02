@@ -1,0 +1,31 @@
+:host {
+    display: block;
+    height: 100vh;
+  }
+  
+  app-header {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+  }
+  
+  app-sidebar {
+    position: fixed;
+    top: 64px;
+    bottom: 0;
+    width: 240px;
+    overflow: auto;
+    z-index: 1;
+  }
+  
+  app-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+  }
+  
+  .fill-remaining-space {
+    flex: 1 1 auto;
+  }
+  

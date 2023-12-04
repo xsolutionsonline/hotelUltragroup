@@ -1,4 +1,4 @@
-<div class="form-register-hotel">
+<div class="form-register-hotel" *ngIf="hotelForm">
     <mat-card class="form-card">
         <mat-card-header color="secondary">
             <mat-card-title color="secondary">
@@ -28,7 +28,7 @@
                 <mat-form-field>
                     <mat-label>Departamento</mat-label>
                     <mat-select formControlName="department" (selectionChange)="onDepartmentChange()"
-                        [disabled]="departments && departments.length===0">
+                        [disabled]=" departments?.length===0">
                         <mat-option *ngFor="let department of departments" [value]="department">{{ department.name
                             }}</mat-option>
                     </mat-select>
@@ -37,7 +37,7 @@
 
                 <mat-form-field>
                     <mat-label>Ciudad</mat-label>
-                    <mat-select formControlName="city" [disabled]="cities && cities.length===0">
+                    <mat-select formControlName="city" [disabled]="cities?.length===0">
                         <mat-option *ngFor="let city of cities" [value]="city">{{ city }}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -45,13 +45,13 @@
 
                 <div class="flex-container">
                     <div class="fields-container">
-                        <mat-label>Calificación del hotel</mat-label>
-                        <app-ratingstar></app-ratingstar>
+                        <mat-label>Calificación del hotel *</mat-label>
+                        <app-ratingstar [selectedStars]="hotel ? hotel.starCategory : 0" (rateChange)="rateStar($event)"></app-ratingstar>
                     </div>
                     <mat-slide-toggle formControlName="isActive" color="primary">Activo</mat-slide-toggle>
                 </div>
                 <mat-card-actions>
-                    <button mat-raised-button matStepperNext type="submit" color="primary" [disabled]="hotelForm.invalid">Siguiente</button>
+                    <button mat-raised-button matStepperNext type="submit" color="primary" [disabled]="hotelForm.invalid || rate===0">Siguiente</button>
                   </mat-card-actions>
                 
             </form>

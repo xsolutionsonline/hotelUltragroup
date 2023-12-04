@@ -7,6 +7,9 @@ export interface Hotel {
   description: string;
   registrationDate?: Date;
   isActive: boolean;
-  images?: string[];
+  images?: File[];
+  country?:string;
+  department?:string;
+  city?:string;
   rooms?: Room[];
 }

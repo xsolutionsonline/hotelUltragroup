@@ -13,11 +13,11 @@
           <img [src]="getImageUrl(image)" alt="Imagen {{ i + 1 }}" class="preview-image">
         </div>
       </div>
-    
+      
     </mat-card-content>
     <mat-card-actions >
       <button mat-stroked-button  matStepperPrevious color="primary" (click)="backStepper()" *ngIf="backTittle">{{backTittle}}</button>
-      <button mat-raised-button matStepperNext color="primary" (click)="next()" [disabled]="selectedImages &&selectedImages.length === 0" *ngIf="nextTittle">{{nextTittle}}</button>
+      <button mat-raised-button matStepperNext color="primary" (click)="next()" [disabled]="existImage" *ngIf="nextTittle">{{nextTittle}}</button>
     </mat-card-actions>
 </mat-card>
 </div>

@@ -20,6 +20,8 @@ import { RoomFormComponent } from './room-form/room-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalImagesRoomComponent } from './room-form/modal-images-room/modal-images-room.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ListHotelsComponent } from './list-hotels/list-hotels.component';
+import { CardHotelComponent } from './list-hotels/card-hotel/card-hotel.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MultiStepCreateHotelComponent,
     RoomFormComponent,
     ModalImagesRoomComponent,
+    ListHotelsComponent,
+    CardHotelComponent,
   ],
   imports: [
     ReactiveFormsModule,

@@ -1,15 +1,17 @@
 <mat-horizontal-stepper linear #stepper>
 
     <mat-step   >
-        <app-register-hotel (formSubmit)="submitStep1($event)"></app-register-hotel>
+        <app-register-hotel (formSubmit)="submitStep1($event)" [hotel]="createdHotel"></app-register-hotel>
     </mat-step>
   
     <mat-step  >
-        <app-image-upload title="Cargar imagenes Hotel" nextTittle ="Siguiente" backTittle="Anterior" (formSubmit)="submitStep2($event)" (back)="back()"></app-image-upload>  
+        <app-image-upload title="Cargar imagenes Hotel" nextTittle ="Siguiente" 
+        backTittle="Anterior"  [images]="createdHotel && createdHotel.images? createdHotel.images: undefined"
+        (formSubmit)="submitStep2($event)" (back)="back()"></app-image-upload>  
     </mat-step>
   
     <mat-step >   
-        <app-room-form  (formSubmit)="submitStep3($event)" (back)="back()"></app-room-form>    
+        <app-room-form  (formSubmit)="submitStep3($event)" [rooms]="createdHotel && createdHotel.rooms ? createdHotel.rooms :[]"></app-room-form>    
     </mat-step>
 
 

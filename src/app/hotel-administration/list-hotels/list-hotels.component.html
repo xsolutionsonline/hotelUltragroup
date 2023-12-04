@@ -1,0 +1,5 @@
+<mat-grid-list cols="4" >
+    <mat-grid-tile *ngFor="let hotel of hoteles">
+        <app-card-hotel [hotel]="hotel"></app-card-hotel>
+    </mat-grid-tile>
+</mat-grid-list>

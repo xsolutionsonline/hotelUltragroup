@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ratingstar.component.scss'],
 })
 export class RatingstarComponent  {
-  @Input() selectedStars = 0;
+  @Input() selectedStars:number | undefined = 0;
   @Output() rateChange = new EventEmitter<number>();
 
   rateStar(rating: number): void {

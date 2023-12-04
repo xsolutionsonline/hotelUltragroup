@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit,Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/core/services/data.service';
-import { ImageUploadComponent } from 'src/app/shared/components/image-upload/image-upload.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalImagesRoomComponent } from './modal-images-room/modal-images-room.component';
 import { Room } from 'src/app/shared/models/room.interface';
@@ -12,12 +11,15 @@ import { Room } from 'src/app/shared/models/room.interface';
   styleUrls: ['./room-form.component.scss'],
 })
 export class RoomFormComponent implements OnInit {
-  @Output() formSubmit = new EventEmitter<FormGroup>();
+  @Output() formSubmit = new EventEmitter<Room[]>();
   @Output() back = new EventEmitter<void>();
 
   roomForm!: FormGroup;
   roomTypes!: string[];
-  rooms:Room[]=[];
+  @Input() rooms:Room[]=[];
+  images: File[] =[];
+  idEdit: number | undefined;
+  titleRoom = 'crear habitación';
 
   constructor(private fb: FormBuilder,
     private dataService: DataService,
@@ -34,39 +36,45 @@ export class RoomFormComponent implements OnInit {
     });
   }
 
-  openImageUploadModal() {
+  openImageUploadModal(event:Event) {
+    event.preventDefault();
     const dialogRef = this.dialog.open(ModalImagesRoomComponent, {
       width: '50%',
       maxHeight: '100%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('El modal se cerró', result);
-      
+      this.images = result;      
     });
   }
 
-  createRoom() {
-    const newRoom:Room = {
+  submitRoom() {
+    if(this.images?.length===0 && !this.roomForm.valid){
+      return;
+    }
+    const room:Room = {
       ...this.roomForm.value,
       location: {
         floor:this.roomForm.get('floor')?.value,
         roomNumber:this.roomForm.get('roomNumber')?.value
-      }
+      },
+      images:this.images
+    }
+    if(this.idEdit){
+      const index = this.rooms.findIndex(data => data.id =this.idEdit);
+      this.rooms[index]=room;
+    }else {
+      this.rooms.push(room);
     }
     
-
-    this.rooms.push(newRoom);
-  
     this.initializeForm();
   
   }
 
   initializeForm() {
     this.roomForm = this.fb.group({
-      number: ['', Validators.required],
-      baseCost: [0, Validators.required],
-      taxes: [0, Validators.required],
+      baseCost: ['', Validators.required],
+      taxes: ['', Validators.required],
       type: ['', Validators.required],
       floor: ['', Validators.required],
       roomNumber: ['', Validators.required],
@@ -78,24 +86,34 @@ export class RoomFormComponent implements OnInit {
       allowsSmoking: [false],
       numberOfBeds: [1, Validators.required],
     });
+
+    this.idEdit=undefined;
+    this.titleRoom = 'crear habitación';
+    
   }
 
-  submitRoom(): void {
-    debugger;
-    if (this.roomForm.valid) {
-      this.formSubmit.emit(this.roomForm.value);
+  submitFormRoom(): void {
+    if (this.rooms && this.rooms.length>0) {
+      this.formSubmit.emit(this.rooms);
     }
   }
 
-  onContactKeydown(event: any): void {
+  onKeydown(event: any): void {
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
     }
   }
 
-
-
   backStepper() {
     this.back.emit();
+  }
+
+  editRoom(room: Room): void {
+    debugger;
+    this.roomForm.patchValue({...room,
+      floor: room.location.floor, 
+      roomNumber: room.location.roomNumber,});
+      this.idEdit = room.id;
+      this.titleRoom = room.id ? 'actualizar habitacion':'crear habitación';
   }
 }

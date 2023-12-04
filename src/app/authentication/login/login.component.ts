@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   login(): void {
 
     if (this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)) {
-      this.router.navigate(['/register-hotel']);
+      this.router.navigate(['/list-hotels']);
     } else {
       Utilities.showSnackbar(this.snackBar, 'Usuario o contraseña no válidos', 5000, 'top');
     }

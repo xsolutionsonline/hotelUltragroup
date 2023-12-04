@@ -1,4 +1,4 @@
-import { Component, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/core/services/data.service';
 import { Country } from 'src/app/shared/models/country';
@@ -11,43 +11,55 @@ import { Hotel } from 'src/app/shared/models/hotel.interface';
   styleUrls: ['./register-hotel.component.scss']
 })
 export class RegisterHotelComponent implements OnInit {
-  @Output() formSubmit = new EventEmitter<FormGroup>();
+  @Output() formSubmit = new EventEmitter<Hotel>();
+  @Input() hotel!:Hotel;
   hotelForm!: FormGroup;
-  starting:number=1;
+  rate:number=0;
   isCountrySelected = false;
   isDepartmentSelected = false;
   countries!:Country[];
-  departments!:Department[]; 
-  cities!:string[];
+  departments!:Department[] | null; 
+  cities!:string[] | null;
 
   constructor(private fb: FormBuilder,
     private dataService:DataService) {}
 
   ngOnInit() {
-    this.initializeForm();
     this.dataService.getDepartment().subscribe((services) => {
       this.countries = services; 
-          
+      this.initializeForm();      
     });
+    
+    
   }
 
   initializeForm() {
     this.hotelForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      country: [''],
-      department: [''],
-      city: [''],
-      isActive: [true],      
+      name: [this.hotel?.name ?this.hotel.name :'', Validators.required],
+      description: [this.hotel?.description ?this.hotel.description :'', Validators.required],
+      country: [this.hotel?.country ? this.obtainCountry(this.hotel.country) :'',Validators.required],
+      department: [this.hotel?.department ?this.departments?.find(data => data.name === this.hotel.department) :'',Validators.required],
+      city: [this.hotel?.city ?this.hotel.city :'',Validators.required],
+      isActive: [this.hotel?.isActive ?this.hotel.isActive :true],      
     });
+    this.rate = this.hotel?.starCategory ? this.hotel.starCategory : 0;
   }
 
   createHotel() {
     if (this.hotelForm.valid) {
-      const newHotel: Hotel = this.hotelForm.value;
-      this.formSubmit.emit(this.hotelForm);
-      console.log('Hotel creado:', newHotel);
+      const newHotel: Hotel = {
+        ...this.hotelForm.value,
+        country:this.hotelForm.get('country')?.value.name,
+        department:this.hotelForm.get('department')?.value.name ,
+        starCategory:this.rate
+      };
+      this.formSubmit.emit(newHotel);
+      
     }
+  }
+
+  rateStar(rate:number){
+    this.rate =rate;
   }
 
   onCountryChange() {
@@ -60,5 +72,13 @@ export class RegisterHotelComponent implements OnInit {
     this.cities = [];
     this.cities = this.hotelForm.get('department')?.value.cities;
     this.hotelForm.get('city')?.setValue('');
+  }
+
+  obtainCountry(countryP: string): Country | null {
+    const country = this.countries.find(data => data.name.toUpperCase()=== countryP.toUpperCase());
+    this.departments = country?.departments ? country?.departments : null;
+    const cities =this.departments?.find(data => data.name === this.hotel.department)?.cities;
+    this.cities =  cities ? cities : null;
+    return country ? country : null;
   }
 }

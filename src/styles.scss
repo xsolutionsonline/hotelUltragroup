@@ -3,7 +3,7 @@ $primary-color: #673ab7;
 html,
 body {
   height: 100%;
-  background-color: rgb(218, 216, 216);
+  
 }
 
 body {
@@ -21,16 +21,54 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
+  flex-direction: column;
+  height: 80vh; 
 }
+
+.form-container-hg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+   
+}
+
 
 .form-card {
   max-width: 700px;
   width: 100%;
   text-align: center;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 2.22);
+  
 }
 
 .mat-card-header {
   background-color: $primary-color;
+}
+
+.mat-mdc-card-header {
+  padding: 16px  0px;
+  background: linear-gradient(to bottom, $primary-color, #8f508aa3); 
+  color:white
+}
+
+:host ::ng-deep .mat-mdc-card-content {
+  display: block;
+  padding: 16px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4px;
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 8px;
+  justify-content: space-between;
 }

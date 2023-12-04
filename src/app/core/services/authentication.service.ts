@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { mockUsers } from '../shared/mocks/mock-users';
-import { User } from '../shared/models/user.interface';
+import { mockUsers } from '../../shared/mocks/mock-users';
+import { User } from '../../shared/models/user.interface';
 
 @Injectable({
   providedIn: 'root'

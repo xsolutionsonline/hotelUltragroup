@@ -1,4 +1,4 @@
-export interface Location {
+export interface LocationRoom {
     floor: number;
     roomNumber: string;
   }

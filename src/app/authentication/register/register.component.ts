@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/core/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { User } from 'src/app/shared/models/user.interface';
 
 @Component({
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
       contact: ['', [Validators.required, Validators.pattern('^[0-9]{1,10}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+      role: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
     });
     
   }

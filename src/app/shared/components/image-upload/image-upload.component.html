@@ -1,10 +1,23 @@
-<div>
-  <h2>Cargar y Visualizar Imágenes</h2>
-  <div *ngFor="let image of selectedImages; let i = index">
-    <input   type="file" (change)="onImageChange($event, i)" accept="image/*"  class="image-upload-button" >
-    <div *ngIf="image">
-      <h3>Imagen Seleccionada {{ i + 1 }}:</h3>
-      <img [src]="getImageUrl(image)" alt="Imagen {{ i + 1 }}" style="max-width: 200px;max-height: 200px;">
-    </div>
-  </div>
+<div class="form-container">
+<mat-card class="form-card">
+    <mat-card-header class="card-header" *ngIf="title">
+        <mat-card-title color="primary">
+          <h2>{{title}}</h2>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngFor="let image of selectedImages; let i = index" class="image-upload-container">
+        <input type="file" (change)="onImageChange($event, i)" accept="image/*" class="image-upload-button">
+        <div *ngIf="image" class="image-preview">
+          <img [src]="getImageUrl(image)" alt="Imagen {{ i + 1 }}" class="preview-image">
+        </div>
+      </div>
+    
+    </mat-card-content>
+    <mat-card-actions >
+      <button mat-stroked-button  matStepperPrevious color="primary" (click)="backStepper()" *ngIf="backTittle">{{backTittle}}</button>
+      <button mat-raised-button matStepperNext color="primary" (click)="next()" [disabled]="selectedImages &&selectedImages.length === 0" *ngIf="nextTittle">{{nextTittle}}</button>
+    </mat-card-actions>
+</mat-card>
 </div>

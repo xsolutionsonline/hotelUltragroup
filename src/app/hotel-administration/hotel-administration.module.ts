@@ -13,12 +13,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RegisterHotelComponent } from './register-hotel/register-hotel.component';
 import { HotelAdministrationRoutingModule } from './hotel-administration-routing.module';
-import { ImageUploadComponent } from '../shared/components/image-upload/image-upload.component';
+import { MultiStepCreateHotelComponent } from './multi-step-create-hotel/multi-step-create-hotel.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { SharedModule } from '../shared/components/shared.module';
+import { RoomFormComponent } from './room-form/room-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalImagesRoomComponent } from './room-form/modal-images-room/modal-images-room.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 @NgModule({
   declarations: [
-    RegisterHotelComponent,   
-    ImageUploadComponent, 
-    
+    RegisterHotelComponent,
+    MultiStepCreateHotelComponent,
+    RoomFormComponent,
+    ModalImagesRoomComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -30,15 +38,17 @@ import { ImageUploadComponent } from '../shared/components/image-upload/image-up
     MatSelectModule,
     MatDatepickerModule,
     MatDatepickerModule,
+    MatGridListModule,
     MatNativeDateModule,
     MatSlideToggleModule,
     HotelAdministrationRoutingModule,
     MatSnackBarModule,
-    
-    
+    MatStepperModule,
+    SharedModule,
+    MatDialogModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },     
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
   ],
 })
 export class HotelAdministrationModule { }

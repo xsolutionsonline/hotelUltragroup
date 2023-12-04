@@ -1,4 +1,11 @@
-<app-header (toggleSidebarEvent)="toggleSidebar()"></app-header>
-<app-sidebar ></app-sidebar>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div id="container">
+  <div id="sidebar">
+    <app-sidebar ></app-sidebar>
+  </div>
+  <div id="contentContainer">
+    <div id="header">
+      <app-header></app-header>
+    </div>
+      <router-outlet></router-outlet>
+  </div>
+</div>

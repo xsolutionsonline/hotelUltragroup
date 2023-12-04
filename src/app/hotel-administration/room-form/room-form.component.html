@@ -1,0 +1,89 @@
+<div class="form-container-hg">
+  <mat-card class="form-card">
+    <mat-card-header class="card-header" color="primary">
+      <mat-card-title>
+        <h2>Registrar Habitaciones</h2>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+    
+      
+      <form [formGroup]="roomForm" (ngSubmit)="createRoom()">
+        <mat-form-field class="full-width">
+          <mat-label>Número de Camas:</mat-label>
+          <input matInput type="number" formControlName="number" [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Costo base:</mat-label>
+          <input matInput type="number" formControlName="baseCost" [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Impuestos:</mat-label>
+          <input matInput type="number" formControlName="taxes" [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Tipo de habitación:</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let roomType of roomTypes" [value]="roomType">{{ roomType }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Piso:</mat-label>
+          <input matInput type="number" formControlName="floor"  [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+        </mat-form-field>
+
+        <mat-form-field class="half-width">
+          <mat-label>Número de habitación:</mat-label>
+          <input matInput type="number" formControlName="roomNumber"  [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+        </mat-form-field>
+
+        <div class="toggle-container">
+          <mat-slide-toggle class="toggle" formControlName="hasWifi" color="primary">Wifi</mat-slide-toggle>
+          <mat-slide-toggle class="toggle" formControlName="hasBathtub" color="primary">Bañera</mat-slide-toggle>
+          <mat-slide-toggle class="toggle" formControlName="hasView" color="primary">Vista</mat-slide-toggle>
+          
+        </div>
+
+        <div class="toggle-container">
+          <mat-slide-toggle class="toggle" formControlName="hasTV" color="primary">Televisor</mat-slide-toggle>
+          <mat-slide-toggle class="toggle" formControlName="allowsSmoking" color="primary">Permite Fumar</mat-slide-toggle>
+          <mat-slide-toggle class="toggle" formControlName="isActive" color="primary">Activo</mat-slide-toggle>
+          
+        </div>
+        <div class="fields-container">
+          <button mat-fab color="accent" class="floating-button" (click)="openImageUploadModal()" color="primary">
+            <mat-icon>folder</mat-icon>
+          </button>
+        </div>
+        <button mat-flat-button type="submit" color="accent"  [disabled]="roomForm.invalid">crear habitación</button>
+      
+      </form>
+     
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button  matStepperPrevious color="primary" (click)="backStepper()">Anterior</button>
+      <button mat-raised-button matStepperNext color="primary" (click)="submitRoom()" [disabled]="rooms && rooms.length==0">Crear Hotel</button>
+    </mat-card-actions>
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile *ngFor="let room of rooms">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>piso:{{room?.location?.floor}} habitación: {{ room?.location?.roomNumber }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Costo base:</strong> {{ room.baseCost }}</p>
+            <p><strong>Impuestos:</strong> {{ room.taxes }}</p>
+            <p><strong>Tipo:</strong> {{ room.type }}</p>
+            
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card>
+ 
+</div>

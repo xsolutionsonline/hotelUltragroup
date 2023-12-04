@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/core/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Utilities } from 'src/app/core/utils/utilities';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   login(): void {
 
     if (this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/register-hotel']);
     } else {
       Utilities.showSnackbar(this.snackBar, 'Usuario o contraseña no válidos', 5000, 'top');
     }

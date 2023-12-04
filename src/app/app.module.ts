@@ -3,45 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardModule } from './shared/components/dashboard/dashboard.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpInterceptorService } from './core/http-interceptor.service';
-
-
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpInterceptorService } from './core/services/http-interceptor.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AuthenticationGuard } from './core/authentication.guard';
-import { AuthenticationService } from './core/authentication.service';
-import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
+import { AuthenticationService } from './core/services/authentication.service';
 import { HotelAdministrationModule } from './hotel-administration/hotel-administration.module';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from './shared/components/shared.module';
+
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent ,
+       
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    DashboardModule,
     AuthenticationModule,
     HotelAdministrationModule,
-    AppRoutingModule,
     HttpClientModule,
-    MatToolbarModule,
     MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    
-
+    AppRoutingModule,
+    SharedModule
+   
   ],
+  exports:[],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

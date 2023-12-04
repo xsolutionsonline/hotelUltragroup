@@ -10,4 +10,26 @@ div {
   mat-checkbox {
     margin-top: 10px; 
   }
+
+  .fields-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .fields-container button {
+    align-self: flex-end;
+  }
+
+  .flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-register-hotel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
   

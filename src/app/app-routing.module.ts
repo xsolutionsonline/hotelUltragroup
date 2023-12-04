@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardModule } from '../app/shared/components/dashboard/dashboard.module';
 import { AuthenticationGuard } from './core/authentication.guard';
 
 const routes: Routes = [
-  { path: 'dashboard', loadChildren: () => import('./shared/components/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate: [AuthenticationGuard] },
+  { path: 'dashboard', loadChildren: () => import('./shared/components/shared.module').then(m => m.SharedModule),canActivate: [AuthenticationGuard] },
   { path: 'register-hotel', loadChildren: () => import('./hotel-administration/hotel-administration.module').then(m => m.HotelAdministrationModule),canActivate: [AuthenticationGuard] },
   { path: 'login', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},
   { path: 'register', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},
@@ -14,8 +13,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,
-    { enableTracing: true } ), 
-    DashboardModule,
+    { enableTracing: true } ),     
   ],
   exports: [RouterModule]
 })

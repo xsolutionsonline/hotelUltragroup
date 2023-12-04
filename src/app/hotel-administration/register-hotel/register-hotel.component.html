@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="form-register-hotel">
     <mat-card class="form-card">
         <mat-card-header color="secondary">
             <mat-card-title color="secondary">
@@ -18,23 +18,43 @@
                     <textarea matInput id="description" name="description" formControlName="description"></textarea>
                 </mat-form-field>
 
-                <mat-slide-toggle formControlName="isActive" color="primary">Activo</mat-slide-toggle>
+                <mat-form-field>
+                    <mat-label>País</mat-label>
+                    <mat-select formControlName="country" (selectionChange)="onCountryChange()">
+                        <mat-option *ngFor="let country of countries" [value]="country">{{ country.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-                <button mat-raised-button type="submit" color="primary">Guardar</button>
+                <mat-form-field>
+                    <mat-label>Departamento</mat-label>
+                    <mat-select formControlName="department" (selectionChange)="onDepartmentChange()"
+                        [disabled]="departments && departments.length===0">
+                        <mat-option *ngFor="let department of departments" [value]="department">{{ department.name
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-label>Ciudad</mat-label>
+                    <mat-select formControlName="city" [disabled]="cities && cities.length===0">
+                        <mat-option *ngFor="let city of cities" [value]="city">{{ city }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+                <div class="flex-container">
+                    <div class="fields-container">
+                        <mat-label>Calificación del hotel</mat-label>
+                        <app-ratingstar></app-ratingstar>
+                    </div>
+                    <mat-slide-toggle formControlName="isActive" color="primary">Activo</mat-slide-toggle>
+                </div>
+                <mat-card-actions>
+                    <button mat-raised-button matStepperNext type="submit" color="primary" [disabled]="hotelForm.invalid">Siguiente</button>
+                  </mat-card-actions>
+                
             </form>
         </mat-card-content>
     </mat-card>
-
-    <mat-card class="form-card">
-        <mat-card-header color="secondary">
-            <mat-card-title color="secondary">
-                <h2> Cargar imagenes</h2>
-            </mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-           <app-image-upload></app-image-upload>
-        </mat-card-content>
-    </mat-card>
-    
 </div>

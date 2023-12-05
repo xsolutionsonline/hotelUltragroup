@@ -13,5 +13,6 @@ export interface Room {
   hasView?: boolean;
   hasTV?: boolean;
   allowsSmoking?: boolean;
+  numberOfPersons:number;
   images?: File[];
 }

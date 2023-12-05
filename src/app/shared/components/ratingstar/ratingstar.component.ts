@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-ratingstar',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class RatingstarComponent  {
   @Input() selectedStars:number | undefined = 0;
   @Output() rateChange = new EventEmitter<number>();
+  @Input() isInteractionEnabled: boolean = true;
 
   rateStar(rating: number): void {
     this.selectedStars = rating;

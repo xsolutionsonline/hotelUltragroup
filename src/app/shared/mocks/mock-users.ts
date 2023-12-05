@@ -10,7 +10,11 @@ export const mockUsers: User[] = [
     email: 'user1@example.com',
     password: '123456',
     active: true,
-    role: 'user'
+    role: 'user',
+    gender: 'Masculino',
+    documentType: 'Cedula',
+    documentNumber: '98705861',
+    phoneNumber: '3246717080'
   },
   {
     id: 2,
@@ -21,6 +25,10 @@ export const mockUsers: User[] = [
     email: 'jerry@gmail.com',
     password: '123456',
     active: true,
-    role: 'admin'
+    role: 'admin',
+    gender: 'Femenino',
+    documentType: 'Cedula',
+    documentNumber: '1017162855',
+    phoneNumber: '3246718055'
   },  
 ];

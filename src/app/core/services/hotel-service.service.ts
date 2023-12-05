@@ -36,4 +36,8 @@ export class HotelService {
     const hotel = mockHoteles.find((h) => h.id === id);
     return of(hotel);
   }
+
+  getHotelesByActive(): Observable<Hotel[] > {
+    return of(mockHoteles.filter(hotel => hotel.isActive = true));
+  }
 }

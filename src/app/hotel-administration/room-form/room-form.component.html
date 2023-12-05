@@ -25,6 +25,11 @@
           <input matInput type="number" formControlName="taxes" [attr.maxlength]="10"  (keydown)="onKeydown($event)"/>
         </mat-form-field>
 
+        <mat-form-field class="half-width">
+          <mat-label>capacidad personas:</mat-label>
+          <input matInput type="number" formControlName="numberOfPersons" [attr.maxlength]="10"  (keydown)="onKeydown($event)"/>
+        </mat-form-field>
+
         <mat-form-field class="full-width">
           <mat-label>Tipo de habitación:</mat-label>
           <mat-select formControlName="type">

@@ -74,6 +74,7 @@ export class RoomFormComponent implements OnInit {
   initializeForm() {
     this.roomForm = this.fb.group({
       baseCost: ['', Validators.required],
+      numberOfPersons: [null, Validators.required],
       taxes: ['', Validators.required],
       type: ['', Validators.required],
       floor: ['', Validators.required],
@@ -109,7 +110,6 @@ export class RoomFormComponent implements OnInit {
   }
 
   editRoom(room: Room): void {
-    debugger;
     this.roomForm.patchValue({...room,
       floor: room.location.floor, 
       roomNumber: room.location.roomNumber,});

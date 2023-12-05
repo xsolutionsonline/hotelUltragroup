@@ -1,0 +1,32 @@
+<div class="search-container">
+
+</div>
+
+<div class="hotel-list">
+    <mat-grid-list cols="4">
+        <mat-grid-tile *ngFor="let room of rooms">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>piso:{{room?.location?.floor}} habitación: {{ room?.location?.roomNumber
+                        }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p><strong>Costo base:</strong> {{ room.baseCost }}</p>
+                    <p><strong>Impuestos:</strong> {{ room.taxes }}</p>
+                    <p><strong>Tipo:</strong> {{ room.type }}</p>
+                    
+                    <mat-icon *ngIf="room.hasWifi">wifi</mat-icon>
+                    <mat-icon *ngIf="room.hasBathtub">bathtub</mat-icon>
+                    <mat-icon *ngIf="room.hasView">landscape</mat-icon>
+                    <mat-icon *ngIf="room.hasTV">tv</mat-icon>
+                    <mat-icon *ngIf="room.allowsSmoking">smoking_rooms</mat-icon>
+                    
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary" (click)="openCreateReservationModal(room)">Reservar</button>
+                </mat-card-actions>
+            </mat-card>
+
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

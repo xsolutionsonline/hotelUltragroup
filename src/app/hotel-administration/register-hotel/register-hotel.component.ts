@@ -1,8 +1,8 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/core/services/data.service';
-import { Country } from 'src/app/shared/models/country';
-import { Department } from 'src/app/shared/models/department';
+import { Country } from 'src/app/shared/models/country.interface';
+import { Department } from 'src/app/shared/models/department.interface';
 import { Hotel } from 'src/app/shared/models/hotel.interface';
 
 @Component({

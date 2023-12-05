@@ -1,12 +1,12 @@
 import { Hotel } from "../models/hotel.interface";
 
 
-export const mockHoteles:Hotel[] = [
+export const mockHoteles: Hotel[] = [
   {
-    id:1,
+    id: 1,
     name: 'Hotel 1',
     description: 'Descripción del Hotel 1',
-    starCategory:3,
+    starCategory: 3,
     country: 'Colombia',
     department: 'Antioquia',
     city: 'Medellín',
@@ -14,8 +14,9 @@ export const mockHoteles:Hotel[] = [
     images: [],
     rooms: [
       {
-        id:1,
+        id: 1,
         numberOfBeds: 1,
+        numberOfPersons: 1,
         baseCost: 100,
         taxes: 10,
         type: 'Compartidas',
@@ -27,17 +28,55 @@ export const mockHoteles:Hotel[] = [
         hasWifi: true,
         hasBathtub: true,
         hasView: true,
+        hasTV: false,
+        allowsSmoking: true,
+        images: [],
+      },
+      {
+        id: 2,
+        numberOfBeds: 2,
+        numberOfPersons: 2,
+        baseCost: 200,
+        taxes: 20,
+        type: 'Compartidas',
+        location: {
+          floor: 2,
+          roomNumber: 201,
+        },
+        isActive: true,
+        hasWifi: false,
+        hasBathtub: true,
+        hasView: true,
+        hasTV: true,
+        allowsSmoking: true,
+        images: [],
+      },
+      {
+        id: 3,
+        numberOfBeds: 3,
+        numberOfPersons: 3,
+        baseCost: 300,
+        taxes: 30,
+        type: 'Compartidas',
+        location: {
+          floor: 3,
+          roomNumber: 301,
+        },
+        isActive: true,
+        hasWifi: true,
+        hasBathtub: false,
+        hasView: false,
         hasTV: true,
         allowsSmoking: true,
         images: [],
       },
     ],
-  }, 
+  },
   {
-    id:2,
+    id: 2,
     name: 'Hotel 2',
     description: 'Descripción del Hotel 2',
-    starCategory:3,
+    starCategory: 3,
     country: 'Colombia',
     department: 'Antioquia',
     city: 'Envigado',
@@ -45,9 +84,10 @@ export const mockHoteles:Hotel[] = [
     images: [],
     rooms: [
       {
-        id:2,
+        id: 2,
         numberOfBeds: 4,
         baseCost: 100000,
+        numberOfPersons: 0,
         taxes: 100,
         type: 'Familiar',
         location: {
@@ -63,5 +103,5 @@ export const mockHoteles:Hotel[] = [
         images: [],
       },
     ],
-  },     
+  },
 ]

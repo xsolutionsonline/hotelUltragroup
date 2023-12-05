@@ -10,5 +10,6 @@ export interface Reservation {
   exitDate: Date;
   room: Room;
   users:User[];
+  numberOfPersons:number;
   emergencyContact: EmergencyContact;
 }

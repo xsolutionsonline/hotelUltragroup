@@ -1,4 +1,7 @@
-<h2>Reserva</h2>
+<mat-card-header>
+    <mat-card-title><h2>Información de Huespedes</h2></mat-card-title>
+</mat-card-header>
+
 <div class="scroll-container" *ngIf="this.reservationForm">
     <form [formGroup]="reservationForm" (ngSubmit)="saveReservation()">
 
@@ -85,25 +88,27 @@
         </div>
 
         <div formGroupName="emergencyContact">
-            <h1>CONTACTO DE EMERGENCIA</h1>
-            <div class="fields-container">
-                <div class="row">
+            <mat-card-header>
+                <mat-card-title><h1>CONTACTO DE EMERGENCIA</h1></mat-card-title>
+            </mat-card-header>
 
-                    <mat-form-field class="middle-width">
-                        <mat-label class="label-login">Nombres Completos</mat-label>
-                        <input matInput type="text" formControlName="fullName">
-                    </mat-form-field>
-
-
-
-                    <mat-form-field class="middle-width">
-                        <mat-label class="label-login">Teléfono de Contacto</mat-label>
-                        <input matInput type="number" formControlName="phoneNumber">
-                    </mat-form-field>
-
-                </div>
-
-            </div>
+            <mat-card-content>
+                    <div class="row">
+    
+                        <mat-form-field class="middle-width">
+                            <mat-label class="label-login">Nombres Completos</mat-label>
+                            <input matInput type="text" formControlName="fullName">
+                        </mat-form-field>
+    
+    
+    
+                        <mat-form-field class="middle-width">
+                            <mat-label class="label-login">Teléfono de Contacto</mat-label>
+                            <input matInput type="number" formControlName="phoneNumber">
+                        </mat-form-field>
+    
+                    </div>
+            </mat-card-content>
         </div>
 
         <div>

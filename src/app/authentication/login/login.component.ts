@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Utilities } from 'src/app/core/utils/utilities';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthenticationService,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -25,11 +27,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-
-    if (this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)) {
+    this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(user =>{
+      if (!user) {
+        Utilities.showSnackbar(this.snackBar, 'Usuario o contraseña no válidos', 5000, 'top');
+        return;
+      } 
+        
+      Utilities.saveObjectToCookie(this.cookieService, 'user', user);
       this.router.navigate(['/list-hotels']);
-    } else {
-      Utilities.showSnackbar(this.snackBar, 'Usuario o contraseña no válidos', 5000, 'top');
-    }
+     
+    });
+    
   }
 }

@@ -5,25 +5,31 @@ import { Hotel } from 'src/app/shared/models/hotel.interface';
 import { HotelService } from 'src/app/core/services/hotel-service.service';
 import { ReservationService } from 'src/app/core/services/reservation.service';
 import { forkJoin } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/app/shared/models/room.interface';
 import { Reservation } from 'src/app/shared/models/reservation.interface';
+import { Utilities } from 'src/app/core/utils/utilities';
+import { CookieService } from 'ngx-cookie-service';
+import { SearchFilter } from 'src/app/shared/models/searchFilter.interface';
 @Component({
   selector: 'app-list-rooms-reservation',
   templateUrl: './list-rooms-reservation.component.html',
   styleUrls: ['./list-rooms-reservation.component.scss']
 })
 export class ListRoomsReservationComponent implements OnInit {
-  hotel!: Hotel;
   allReservationRooms!: Room[];
-  rooms!: Room[];
-  reservation!:Reservation;
+  rooms!: Room[] | undefined;
+  reservation!: Reservation;
+  hotelsFilter!: Hotel[];
+  searchFilters!: SearchFilter;
 
   constructor(
     private routeA: ActivatedRoute,
     private dialog: MatDialog,
     private hotelService: HotelService,
-    private reservationService: ReservationService) { }
+    private reservationService: ReservationService,
+    private cookieService: CookieService,
+    private router: Router,) { }
 
   ngOnInit(): void {
     this.routeA.params.subscribe((params) => {
@@ -32,9 +38,9 @@ export class ListRoomsReservationComponent implements OnInit {
         reservations: this.reservationService.getReservations()
       }).subscribe({
         next: ({ hotel, reservations }) => {
-          const reservation = reservations.filter(reservation => reservation.hotel === hotel.id)
-          this.allReservationRooms = Array.from(new Set(reservation?.flatMap(reservation => reservation.room)));
-          this.rooms = hotel.rooms.filter((room: any) => !this.isRoomInReservation(room));
+          this.searchFilters = Utilities.getObjectFromCookie(this.cookieService, 'filterHotels');
+          this.hotelsFilter = Utilities.filterHotels([hotel], reservations, this.searchFilters);
+          this.rooms = this.hotelsFilter[0].rooms;
         },
         error: error => {
           console.error('Error al obtener datos', error);
@@ -54,21 +60,33 @@ export class ListRoomsReservationComponent implements OnInit {
 
 
 
-  openCreateReservationModal(room: any): void {
+  openCreateReservationModal(room: Room): void {
     const dialogRef = this.dialog.open(CreateReservationModalComponent, {
-      width: '70%',   
-      data: { maxGuests: 2 }  
+      width: '70%',
+      data: { maxGuests: this.searchFilters.numberOfPersons }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.createdReservation(result);
-      }      
+      if (result) {
+        this.createdReservation(result, room);
+      }
     });
   }
-  createdReservation(guest: any) {
+
+  createdReservation(guest: any, room: Room) {
     this.reservation = {
       ...guest,
+      room,
+      id: this.reservationService.getAllReservation().length + 1,
+      hotel: this.hotelsFilter,
+      entryDate: this.searchFilters.entryDate,
+      exitDate: this.searchFilters.exitDate,
+      numberOfPersons: this.searchFilters.numberOfPersons
     }
+    this.reservationService.created(this.reservation).subscribe(() => {
+      this.cookieService.delete('filterHotels');
+      this.router.navigate(['/list-hotels-reservation']);
+    });
   }
+
 }

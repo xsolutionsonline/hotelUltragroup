@@ -1,0 +1,26 @@
+<h2>Lista de Huéspedes</h2>
+
+<div class="scroll-container" *ngIf="guests">
+    <button  mat-raised-button (click)="close()">Cerrar</button>
+<div *ngFor="let guest of guests; let i = index">
+    <mat-card-header>
+        <mat-card-title>Huésped {{ i + 1 }}</mat-card-title>
+    </mat-card-header>
+  <mat-card>
+    
+    <mat-card-content>
+      <p><strong>Nombres:</strong> {{ guest.firstName }}</p>
+      <p><strong>Apellido:</strong> {{ guest.lastName }}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {{ guest.birthDate | date }}</p>
+      <p><strong>Contacto:</strong> {{ guest.contact }}</p>
+      <p><strong>Email:</strong> {{ guest.email }}</p>
+      <p><strong>Género:</strong> {{ guest.gender }}</p>
+      <p><strong>Tipo de Documento:</strong> {{ guest.documentType }}</p>
+      <p><strong>Número de Documento:</strong> {{ guest.documentNumber }}</p>
+      <p><strong>Teléfono:</strong> {{ guest.phoneNumber }}</p>      
+    </mat-card-content>
+  </mat-card>
+  <hr>
+</div>
+<button  mat-raised-button (click)="close()">Cerrar</button>
+</div>

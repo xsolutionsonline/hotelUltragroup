@@ -1,4 +1,5 @@
 import { Room } from "./room.interface";
+import { User } from "./user.interface";
 
 export interface Hotel {
   id?: number;
@@ -6,6 +7,7 @@ export interface Hotel {
   starCategory?: number;
   description: string;
   registrationDate?: Date;
+  userCreated:User;
   isActive: boolean;
   images?: File[];
   country?:string;

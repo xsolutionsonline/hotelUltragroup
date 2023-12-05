@@ -33,6 +33,11 @@ body {
    
 }
 
+.scroll-container {
+  overflow-y: auto;
+  max-height: 500px; 
+}
+
 
 .form-card {
   max-width: 700px;

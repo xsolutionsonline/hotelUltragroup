@@ -1,0 +1,24 @@
+<div class="hotel-list">
+    <mat-grid-list cols="4">
+        <mat-grid-tile *ngFor="let reservation of reservations">
+            <mat-card (click)="openCreateReservationModal(reservation)">
+                <mat-card-header>
+                    <mat-card-title>
+                        <p>{{ reservation.hotel.name }}</p>
+                        <app-ratingstar [isInteractionEnabled]=false
+                            [selectedStars]="reservation.hotel ? reservation.hotel.starCategory : 0"></app-ratingstar>
+
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p><strong>Ubicación:</strong> {{ reservation.hotel.country }}, {{ reservation.hotel.department }}, {{ reservation.hotel.city }}</p>
+                    <p><strong>Caracteristicas:</strong></p>
+                    <p><strong>Fecha Ingreso:</strong> {{ reservation.entryDate | date:'dd/MM/YYYY' }}</p>
+                    <p><strong>Fecha Salida:</strong> {{ reservation.entryDate | date:'dd/MM/YYYY' }}</p>
+                    <p><strong>Huespedes:</strong> {{ reservation.numberOfPersons }}</p>
+                    <p><strong>Habitación:</strong> {{ reservation.room.location.floor }} - {{ reservation.room.location.roomNumber }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

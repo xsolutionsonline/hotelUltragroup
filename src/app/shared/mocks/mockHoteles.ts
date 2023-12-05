@@ -12,11 +12,26 @@ export const mockHoteles: Hotel[] = [
     city: 'Medellín',
     isActive: true,
     images: [],
+    userCreated:{
+      id: 2,
+      firstName: 'Nombre2',
+      lastName: 'Apellido2',
+      birthDate: new Date(),
+      contact: '987654321',
+      email: 'jerry@gmail.com',
+      password: '123456',
+      active: true,
+      role: 'admin',
+      gender: 'Femenino',
+      documentType: 'Cedula',
+      documentNumber: '1017162855',
+      phoneNumber: '3246718055'
+    },
     rooms: [
       {
         id: 1,
         numberOfBeds: 1,
-        numberOfPersons: 1,
+        numberOfPersons: 5,
         baseCost: 100,
         taxes: 10,
         type: 'Compartidas',
@@ -35,7 +50,7 @@ export const mockHoteles: Hotel[] = [
       {
         id: 2,
         numberOfBeds: 2,
-        numberOfPersons: 2,
+        numberOfPersons: 8,
         baseCost: 200,
         taxes: 20,
         type: 'Compartidas',
@@ -82,6 +97,21 @@ export const mockHoteles: Hotel[] = [
     city: 'Envigado',
     isActive: true,
     images: [],
+    userCreated:{
+      id: 2,
+      firstName: 'Nombre2',
+      lastName: 'Apellido2',
+      birthDate: new Date(),
+      contact: '987654321',
+      email: 'jerry@gmail.com',
+      password: '123456',
+      active: true,
+      role: 'admin',
+      gender: 'Femenino',
+      documentType: 'Cedula',
+      documentNumber: '1017162855',
+      phoneNumber: '3246718055'
+    },
     rooms: [
       {
         id: 2,

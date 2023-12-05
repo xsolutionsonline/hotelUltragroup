@@ -6,7 +6,9 @@ import { ReservationService } from 'src/app/core/services/reservation.service';
 import { Reservation } from 'src/app/shared/models/reservation.interface';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { Utilities } from 'src/app/core/utils/utilities';
+import { SearchFilter } from 'src/app/shared/models/searchFilter.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-list-hotels-reservation',
@@ -21,7 +23,9 @@ export class ListHotelsReservationComponent implements OnInit {
   constructor(private dialog: MatDialog,
     private hotelService: HotelService,
     private reservationService: ReservationService,
-    private router: Router) { }
+    private router: Router,
+    private cookieService: CookieService) { }
+    
 
   ngOnInit(): void {
     forkJoin({
@@ -38,42 +42,14 @@ export class ListHotelsReservationComponent implements OnInit {
     });
   }
 
-  private filterHotelRooms(hotel: Hotel): boolean | undefined {
-    if (this.reservations.length === 0) {
-      return true;
-    }
-
-    return hotel.rooms?.some(() => !this.reservations.some(reservation => reservation.room));
-  }
 
   openCreateReservationModal(hotel: any): void {
     this.router.navigate(['/list-rooms-reservation', hotel.id]);
   }
 
-  searchFilterHotels(filters: any): void {
-    debugger;
-  
-    const filteredReservations = this.reservations.filter(reservation => {
-      const entryDateValid = new Date(reservation.entryDate) >= new Date(filters.entryDate);
-      const exitDateValid = new Date(reservation.exitDate) <= new Date(filters.exitDate);
-      return entryDateValid && exitDateValid;
-    });
-  
-    const filteredHotels = this.hotels.filter(hotel => {
-      const isNotInReservation = !filteredReservations.some(reservation =>
-        reservation.hotel.id === hotel.id
-      );
-  
-      const numberOfPersonsValid = hotel.rooms ?
-        hotel.rooms.some(data => data.numberOfPersons >= filters.numberOfPersons) :
-        false;
-  
-      const cityValid = hotel.city === filters.city;
-  
-      return isNotInReservation && numberOfPersonsValid && cityValid;
-    });
-  
-    this.hotelsFilter = filteredHotels;
+  searchFilterHotels(filters: SearchFilter): void {
+    Utilities.saveObjectToCookie(this.cookieService, 'filterHotels', filters);
+    this.hotelsFilter =  Utilities.filterHotels(this.hotels, this.reservations, filters);;
   }
-  
+
 }

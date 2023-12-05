@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'edit-hotel/:id', loadChildren: () => import('./hotel-administration/hotel-administration.module').then(m => m.HotelAdministrationModule),canActivate: [AuthenticationGuard] },
   { path: 'list-rooms-reservation/:id', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule),canActivate: [AuthenticationGuard] },
   { path: 'list-hotels-reservation', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule),canActivate: [AuthenticationGuard] },
+  { path: 'reservation', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule),canActivate: [AuthenticationGuard] },
   { path: 'list-hotels', loadChildren: () => import('./hotel-administration/hotel-administration.module').then(m => m.HotelAdministrationModule),canActivate: [AuthenticationGuard] },
   { path: 'login', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},
   { path: 'register', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)},

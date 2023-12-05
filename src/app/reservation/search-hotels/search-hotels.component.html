@@ -44,6 +44,6 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="primary" (click)="searchHotels()">Buscar Hoteles</button>
+    <button mat-raised-button color="primary" (click)="searchHotels()" [disabled]="searchForm.invalid">Buscar Hoteles</button>
   </div>
 </mat-card>

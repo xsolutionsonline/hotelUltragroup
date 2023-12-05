@@ -22,6 +22,8 @@ import { CreateReservationModalComponent } from './create-reservation-modal/crea
 import { ListHotelsReservationComponent } from './list-hotels-reservation/list-hotels-reservation.component';
 import { RoomModalComponent } from './room-modal/room-modal.component';
 import { ListRoomsReservationComponent } from './list-rooms-reservation/list-rooms-reservation.component';
+import { ListReservationsComponent } from './list-reservations/list-reservations.component';
+import { GuestListModalComponent } from './list-reservations/guest-list-modal/guest-list-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ListRoomsReservationComponent } from './list-rooms-reservation/list-roo
     CreateReservationModalComponent,
     ListHotelsReservationComponent,
     RoomModalComponent,
-    ListRoomsReservationComponent
+    ListRoomsReservationComponent,
+    ListReservationsComponent,
+    GuestListModalComponent
   ],
   imports: [
     ReactiveFormsModule,

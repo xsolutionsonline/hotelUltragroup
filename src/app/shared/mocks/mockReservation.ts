@@ -1,13 +1,15 @@
 import { Reservation } from '../models/reservation.interface';
+import { mockUsers } from './mock-users';
 import { mockHoteles } from './mockHoteles';
 
 export const mockReservation: Reservation[] = [
   {
     id: 1,
     hotel: mockHoteles[0],
-    entryDate: new Date('15/12/2023'),
-    exitDate: new Date('20/12/2023'),
-    users:[],
+    entryDate: new Date('2023-12-6'),
+    exitDate: new Date('2023-12-31'),
+    numberOfPersons:4,
+    users:[mockUsers[0],mockUsers[0]],
     room: {
       id: 3,
       numberOfBeds: 3,
@@ -38,6 +40,7 @@ export const mockReservation: Reservation[] = [
     hotel: mockHoteles[1],
     entryDate: new Date('2023-02-01'),
     exitDate: new Date('2023-02-10'),
+    numberOfPersons:5,
     users:[],
     room: {
       id: 1,

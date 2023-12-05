@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { mockUsers } from '../../shared/mocks/mock-users';
 import { User } from '../../shared/models/user.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ import { User } from '../../shared/models/user.interface';
 export class AuthenticationService {
   private isLoggedIn = false;
 
-  login(email: string, password: string): boolean {
+  login(email: string, password: string): Observable<User | undefined> {
     const user = mockUsers.find(u => u.email === email && u.password === password);
     this.isLoggedIn = !!user; 
-    return this.isLoggedIn;
+    return of(user);
   }
 
   register(newUser: User): void {

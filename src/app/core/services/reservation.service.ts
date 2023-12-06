@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 import { mockReservation } from 'src/app/shared/mocks/mockReservation';
@@ -7,27 +8,24 @@ import { Reservation } from 'src/app/shared/models/reservation.interface';
   providedIn: 'root'
 })
 export class ReservationService {
+  private apiUrl = 'http://localhost:8000/reservation';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  created(reservation: Reservation): Observable<boolean> {  
-    mockReservation.push(reservation);  
-    return of(true);          
+  created(reservation: Reservation): Observable<Reservation> {  
+    return this.http.post<Reservation>(`${this.apiUrl}`, reservation);          
   }
 
   getReservations(): Observable<Reservation[]> {
-    
-    return of(mockReservation.filter(reservation => new Date(reservation.exitDate) > new Date()));
+    return this.http.get<Reservation[]>(`${this.apiUrl}/future`);
   }
 
-  getAllReservation():Reservation[]{
-    return mockReservation;
+  getAllReservation():Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(this.apiUrl);
   }
 
   getReservationsByHotelUserCreatedId(userId: number | undefined): Observable<Reservation[]> {
     
-    return this.getReservations().pipe(
-      map((reservations) => reservations.filter(reservation => reservation.hotel.userCreated.id === userId))
-    );
+    return this.http.get<Reservation[]>(`${this.apiUrl}/${userId}`);
   }
 }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Utilities } from 'src/app/core/utils/utilities';
 import { SearchFilter } from 'src/app/shared/models/searchFilter.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
   selector: 'app-list-hotels-reservation',
@@ -24,12 +25,13 @@ export class ListHotelsReservationComponent implements OnInit {
     private hotelService: HotelService,
     private reservationService: ReservationService,
     private router: Router,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    ) { }
     
 
   ngOnInit(): void {
     forkJoin({
-      hotels: this.hotelService.getHotelesByActive(),
+      hotels: this.hotelService.getHotelesByActive(true),
       reservations: this.reservationService.getReservations()
     }).subscribe({
       next: ({ hotels, reservations }) => {
@@ -40,6 +42,8 @@ export class ListHotelsReservationComponent implements OnInit {
         console.error('Error al obtener datos', error);
       }
     });
+
+    
   }
 
 

@@ -11,6 +11,7 @@ import { Reservation } from 'src/app/shared/models/reservation.interface';
 import { Utilities } from 'src/app/core/utils/utilities';
 import { CookieService } from 'ngx-cookie-service';
 import { SearchFilter } from 'src/app/shared/models/searchFilter.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-list-rooms-reservation',
   templateUrl: './list-rooms-reservation.component.html',
@@ -29,7 +30,8 @@ export class ListRoomsReservationComponent implements OnInit {
     private hotelService: HotelService,
     private reservationService: ReservationService,
     private cookieService: CookieService,
-    private router: Router,) { }
+    private router: Router,
+    private snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.routeA.params.subscribe((params) => {
@@ -77,13 +79,13 @@ export class ListRoomsReservationComponent implements OnInit {
     this.reservation = {
       ...guest,
       room,
-      id: this.reservationService.getAllReservation().length + 1,
-      hotel: this.hotelsFilter,
+      hotel: this.hotelsFilter[0],
       entryDate: this.searchFilters.entryDate,
       exitDate: this.searchFilters.exitDate,
       numberOfPersons: this.searchFilters.numberOfPersons
     }
     this.reservationService.created(this.reservation).subscribe(() => {
+      Utilities.showSnackbar(this.snackBar, 'has reservado con exito tu habitacion te esperamos', 6000, 'top');
       this.cookieService.delete('filterHotels');
       this.router.navigate(['/list-hotels-reservation']);
     });

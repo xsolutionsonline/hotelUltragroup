@@ -4,7 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Utilities } from 'src/app/core/utils/utilities';
-import { CookieService } from 'ngx-cookie-service';
+import { UserRequest } from 'src/app/shared/models/userRequest';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +13,19 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  constructor(private authService: AuthenticationService,
+
+  constructor(
+    private authService: AuthenticationService,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private cookieService: CookieService) { }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -27,16 +33,26 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(user =>{
-      if (!user) {
-        Utilities.showSnackbar(this.snackBar, 'Usuario o contraseña no válidos', 5000, 'top');
-        return;
-      } 
-        
-      Utilities.saveObjectToCookie(this.cookieService, 'user', user);
-      this.router.navigate(['/list-hotels']);
-     
+    const userRequest: UserRequest = this.getUserRequestFromForm();
+
+    this.authService.login(userRequest).subscribe({
+      next: () => {
+        this.router.navigate(['/reservation']);
+      },
+      error: (error) => {
+        this.showSnackbarError(error.error);
+      }
     });
-    
+  }
+
+  private getUserRequestFromForm(): UserRequest {
+    return {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value
+    };
+  }
+
+  private showSnackbarError(errorMessage: string): void {
+    Utilities.showSnackbar(this.snackBar, errorMessage, 5000, 'top');
   }
 }

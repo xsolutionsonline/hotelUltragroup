@@ -1,7 +1,3 @@
-<div class="search-container">
-
-</div>
-
 <div class="hotel-list">
     <mat-grid-list cols="4">
         <mat-grid-tile *ngFor="let room of rooms">
@@ -14,12 +10,19 @@
                     <p><strong>Costo base:</strong> {{ room.baseCost }}</p>
                     <p><strong>Impuestos:</strong> {{ room.taxes }}</p>
                     <p><strong>Tipo:</strong> {{ room.type }}</p>
+                    <p><strong>Camas:</strong> {{ room.numberOfBeds }}</p>
+                    <p><strong>Personas:</strong> {{ room.numberOfPersons }}</p>
                     
                     <mat-icon *ngIf="room.hasWifi">wifi</mat-icon>
                     <mat-icon *ngIf="room.hasBathtub">bathtub</mat-icon>
                     <mat-icon *ngIf="room.hasView">landscape</mat-icon>
                     <mat-icon *ngIf="room.hasTV">tv</mat-icon>
-                    <mat-icon *ngIf="room.allowsSmoking">smoking_rooms</mat-icon>
+                    <ng-container *ngIf="room.allowsSmoking; else noSmokingIcon">
+                        <mat-icon>smoking_rooms</mat-icon>
+                      </ng-container>
+                      <ng-template #noSmokingIcon>
+                        <mat-icon>smoke_free</mat-icon>
+                      </ng-template>
                     
                 </mat-card-content>
                 <mat-card-actions>

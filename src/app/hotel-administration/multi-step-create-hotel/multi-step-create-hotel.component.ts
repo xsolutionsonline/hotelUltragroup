@@ -1,7 +1,9 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatStepper  } from '@angular/material/stepper';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { HotelService } from 'src/app/core/services/hotel-service.service';
+import { Utilities } from 'src/app/core/utils/utilities';
 import { Hotel } from 'src/app/shared/models/hotel.interface';
 import { Room } from 'src/app/shared/models/room.interface';
 
@@ -17,7 +19,8 @@ export class MultiStepCreateHotelComponent implements OnInit{
   
   constructor(private routeA:ActivatedRoute,
     private hotelService: HotelService,
-    private router: Router,) {}
+    private router: Router,
+    private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.routeA.params.subscribe((params) => {
@@ -41,29 +44,29 @@ export class MultiStepCreateHotelComponent implements OnInit{
   submitStep2(images: File[]) {
     this.createdHotel = {
       ...this.createdHotel,
-      images:images      
+    //  images:images      
     }    
     this.stepper.next();
   }
 
-  submitStep3(rooms: Room[]) {    
+  submitStep3(rooms: Room[]) { 
     this.createdHotel = {
       ...this.createdHotel,
-      rooms:rooms
+      rooms:rooms,
+      userCreated:Utilities.getObjectFromCookie(this.cookieService,'user')
     } 
+    
     if(this.createdHotel?.id){
-      this.hotelService.update(this.createdHotel);
+      this.hotelService.update(this.createdHotel?.id,this.createdHotel).subscribe(data => {
+        this.router.navigate(['/list-hotels']);
+      });
     }else {
-    this.hotelService.getHoteles().subscribe(hotels => {
-      this.createdHotel = {
-        ...this.createdHotel,
-        id: hotels.length + 1
-      }
-      this.hotelService.created(this.createdHotel);
-    });
+      this.hotelService.created(this.createdHotel).subscribe(data => {
+        this.router.navigate(['/list-hotels']);
+      });
     }
     
-    this.router.navigate(['/list-hotels']);
+
   }
 
 

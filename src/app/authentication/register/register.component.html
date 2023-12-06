@@ -74,18 +74,6 @@
             </mat-form-field>
           </div>
   
-          <div class="fields-container">
-            <mat-form-field>
-              <mat-label>Rol</mat-label>
-              <mat-icon matPrefix>assignment_ind</mat-icon>
-              <mat-select formControlName="role" placeholder="Seleccionar">
-                <mat-option value="admin">Administrador</mat-option>
-                <mat-option value="user">Usuario</mat-option>
-              </mat-select>
-              <mat-error *ngIf="registerForm.get('role')?.hasError('required')">Rol es obligatorio</mat-error>
-            </mat-form-field>
-          </div>
-  
           <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Registrarse</button>
         </form>
       

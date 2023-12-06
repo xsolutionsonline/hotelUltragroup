@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
+import { Utilities } from 'src/app/core/utils/utilities';
 import { User } from 'src/app/shared/models/user.interface';
 
 @Component({
@@ -13,9 +15,12 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   passwordHidden = true;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -29,17 +34,17 @@ export class RegisterComponent implements OnInit {
       contact: ['', [Validators.required, Validators.pattern('^[0-9]{1,10}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
-      role: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
     });
-    
   }
 
   register(): void {
-    this.authService.register(this.registerForm.value as User);
-    this.router.navigate(['/login']);
+    this.authService.register(this.registerForm.value as User).subscribe(
+      () => this.router.navigate(['/login']),
+      (error) => Utilities.showSnackbar(this.snackBar, error.error, 5000, 'top')
+    );
   }
 
-  onContactKeydown(event: any): void {
+  onContactKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
     }
@@ -49,5 +54,4 @@ export class RegisterComponent implements OnInit {
     event.preventDefault();
     this.passwordHidden = !this.passwordHidden;
   }
-
 }

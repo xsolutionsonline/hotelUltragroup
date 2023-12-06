@@ -58,7 +58,7 @@ export class RoomFormComponent implements OnInit {
         floor:this.roomForm.get('floor')?.value,
         roomNumber:this.roomForm.get('roomNumber')?.value
       },
-      images:this.images
+      //images:this.images
     }
     if(this.idEdit){
       const index = this.rooms.findIndex(data => data.id =this.idEdit);
@@ -79,7 +79,7 @@ export class RoomFormComponent implements OnInit {
       type: ['', Validators.required],
       floor: ['', Validators.required],
       roomNumber: ['', Validators.required],
-      isActive: [true, Validators.required],
+      active: [true, Validators.required],
       hasWifi: [false],
       hasBathtub: [false],
       hasView: [false],
@@ -109,11 +109,15 @@ export class RoomFormComponent implements OnInit {
     this.back.emit();
   }
 
-  editRoom(room: Room): void {
+  editRoom(room: Room,index:any): void {
     this.roomForm.patchValue({...room,
       floor: room.location.floor, 
       roomNumber: room.location.roomNumber,});
       this.idEdit = room.id;
+
+      if(!this.idEdit){
+        this.rooms.splice(index,1);
+      }
       this.titleRoom = room.id ? 'actualizar habitacion':'crear habitación';
   }
 }

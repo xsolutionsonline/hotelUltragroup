@@ -36,7 +36,7 @@ export class Utilities {
 
 
   static filterHotels(hotels: Hotel[], reservations: Reservation[], filters: SearchFilter): Hotel[] {
-    const filteredReservations = reservations.filter(reservation => {
+    const filteredReservations = reservations?.filter(reservation => {
       const entryDateValid =
         new Date(reservation.entryDate) >= new Date(filters.exitDate) || new Date(reservation.exitDate) <= new Date(filters.entryDate);
       const exitDateValid =
@@ -47,10 +47,10 @@ export class Utilities {
 
     const filteredHotels = hotels.map(hotel => {
       const filteredRooms = hotel.rooms
-        ? hotel.rooms.filter(room => {
-            return !filteredReservations.some(reservation => reservation.room.id === room.id) && hotel.city === filters.city && room.numberOfPersons >= filters.numberOfPersons;
+        ? filteredReservations ? hotel.rooms.filter(room => {
+            return filteredReservations ?!filteredReservations?.some(reservation => reservation.room.id === room.id) && hotel.city === filters.city && room.numberOfPersons >= filters.numberOfPersons:true;
           })
-        : [];
+        :hotel.rooms: [];
       return { ...hotel, rooms: filteredRooms };
     }).filter(hotel => {
       return hotel.rooms.length > 0;

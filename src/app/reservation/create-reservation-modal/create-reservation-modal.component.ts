@@ -19,7 +19,8 @@ export class CreateReservationModalComponent {
   constructor(
     public dialogRef: MatDialogRef<CreateReservationModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+
   ) {
     this.maxGuests = data.maxGuests || 2;
     this.genderOptions = Object.values(Gender).map(gender => ({ value: gender, label: gender }));

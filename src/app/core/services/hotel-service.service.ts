@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mockHoteles } from 'src/app/shared/mocks/mockHoteles';
@@ -7,37 +8,28 @@ import { Hotel } from 'src/app/shared/models/hotel.interface';
   providedIn: 'root',
 })
 export class HotelService {
-  
+  private apiUrl = 'http://localhost:8000/hotel';
+
+
+  constructor(private http: HttpClient) {}
+
+  created(hotel: Hotel): Observable<Hotel | undefined> {
+    return this.http.post<Hotel>(`${this.apiUrl}`, hotel);
+  }
+
+  update(id:number,hotel: Hotel): Observable<Hotel | null> {
+    return this.http.put<Hotel>( `${this.apiUrl}/update/${id}`, hotel)     
+  }
+
   getHoteles(): Observable<Hotel[]> {
-    return of(mockHoteles);
+    return this.http.get<Hotel[]>(this.apiUrl);
   }
 
-  created(hotel: Hotel): void {
-    const existingHotel = mockHoteles.find(u => u.name.toUpperCase() === hotel.name.toUpperCase());
-
-    if (existingHotel) {
-      console.log('El hotel ya existe.');
-    } else {
-      mockHoteles.push(hotel);          
-    }
+  getHotelById(id: number): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
   }
 
-  update(hotel: Hotel): Observable<Hotel | null> {
-    const index = mockHoteles.findIndex((h) => h.id === hotel.id);
-
-    if (index !== -1) {
-      mockHoteles[index] = { ...mockHoteles[index], ...hotel };
-      return of(mockHoteles[index]);
-    } 
-      return of(null);    
-  }
-
-  getHotelById(id: number): Observable<any> {
-    const hotel = mockHoteles.find((h) => h.id === id);
-    return of(hotel);
-  }
-
-  getHotelesByActive(): Observable<Hotel[] > {
-    return of(mockHoteles.filter(hotel => hotel.isActive = true));
+  getHotelesByActive(isActive: boolean): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(`${this.apiUrl}?isActive=${isActive}`);
   }
 }

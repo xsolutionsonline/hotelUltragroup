@@ -7,7 +7,7 @@ export interface Room {
   taxes: number;
   type: string;
   location: LocationRoom;
-  isActive: boolean;
+  active: boolean;
   hasWifi?: boolean;
   hasBathtub?: boolean;
   hasView?: boolean;

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="searchForm">
   <div [formGroup]="searchForm">
     <div class="row">
       <mat-form-field class="middle-width">
@@ -17,31 +17,34 @@
     </div>
     <div class="row">
       <mat-form-field class="middle-width">
-        <mat-label class="label-login">Canidad personas</mat-label>
+        <mat-label class="label-login">Cantidad personas</mat-label>
         <input matInput type="number"  formControlName="numberOfPersons">
       </mat-form-field>
 
-      <mat-form-field class="middle-width">
-        <mat-label class="label-login">País</mat-label>
-        <mat-select formControlName="country">
-          <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+      <mat-form-field>
+        <mat-label>País</mat-label>
+        <mat-select formControlName="country" (selectionChange)="onCountryChange()">
+            <mat-option *ngFor="let country of countries" [value]="country">{{ country.name }}</mat-option>
         </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="row">
-      <mat-form-field class="middle-width">
-        <mat-label class="label-login">Departmento</mat-label>
-        <mat-select formControlName="department">
-          <mat-option *ngFor="let department of departments" [value]="department">{{department}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-error *ngIf="searchForm.get('country')?.hasError('required')">El país es requerido.</mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="middle-width">
-        <mat-label class="label-login">Ciudad</mat-label>
-        <mat-select formControlName="city">
-          <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+    <mat-form-field>
+        <mat-label>Departamento</mat-label>
+        <mat-select formControlName="department" (selectionChange)="onDepartmentChange()"
+            [disabled]=" departments?.length===0">
+            <mat-option *ngFor="let department of departments" [value]="department">{{ department.name }}</mat-option>
         </mat-select>
-      </mat-form-field>
+        <mat-error *ngIf="searchForm.get('department')?.hasError('required')">El departamento es requerido.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Ciudad</mat-label>
+        <mat-select formControlName="city" [disabled]="cities?.length===0">
+            <mat-option *ngFor="let city of cities" [value]="city">{{ city }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="searchForm.get('city')?.hasError('required')">La ciudad es requerida.</mat-error>
+    </mat-form-field>
     </div>
 
     <button mat-raised-button color="primary" (click)="searchHotels()" [disabled]="searchForm.invalid">Buscar Hoteles</button>

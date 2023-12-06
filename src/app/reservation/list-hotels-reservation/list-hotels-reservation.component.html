@@ -1,6 +1,7 @@
+<div class="tittle">Busca tu proximo hotel y reserva</div>
 <div class="search-container">
     <app-search-hotels (searchFilterHotels)="searchFilterHotels($event)"></app-search-hotels>
-</div>
+ </div>
 
 <div class="hotel-list">
     <mat-grid-list cols="4">
@@ -24,3 +25,4 @@
         </mat-grid-tile>
     </mat-grid-list>
 </div>
+<div *ngIf="!hotelsFilter"><h1 >Filtra tu fecha de ida y  regreso, ciudad , cantidad de personas y encuentra los mejores hoteles</h1></div>

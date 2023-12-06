@@ -1,5 +1,12 @@
-<mat-grid-list cols="4" >
-    <mat-grid-tile *ngFor="let hotel of hoteles">
+<div class="tittle">VER HOTELES</div>
+<ng-container *ngIf="hoteles.length > 0; else noHoteles">
+    <mat-grid-list cols="4">
+      <mat-grid-tile *ngFor="let hotel of hoteles">
         <app-card-hotel [hotel]="hotel"></app-card-hotel>
-    </mat-grid-tile>
-</mat-grid-list>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-container>
+  
+  <ng-template #noHoteles>
+    <h1>Aún no hay hoteles registrados</h1>
+  </ng-template>

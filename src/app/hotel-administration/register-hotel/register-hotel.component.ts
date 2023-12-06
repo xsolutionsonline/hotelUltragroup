@@ -34,13 +34,14 @@ export class RegisterHotelComponent implements OnInit {
   }
 
   initializeForm() {
+    
     this.hotelForm = this.fb.group({
       name: [this.hotel?.name ?this.hotel.name :'', Validators.required],
       description: [this.hotel?.description ?this.hotel.description :'', Validators.required],
       country: [this.hotel?.country ? this.obtainCountry(this.hotel.country) :'',Validators.required],
       department: [this.hotel?.department ?this.departments?.find(data => data.name === this.hotel.department) :'',Validators.required],
       city: [this.hotel?.city ?this.hotel.city :'',Validators.required],
-      isActive: [this.hotel?.isActive ?this.hotel.isActive :true],      
+      active: [this.hotel?.active ?this.hotel.active :true],      
     });
     this.rate = this.hotel?.starCategory ? this.hotel.starCategory : 0;
   }

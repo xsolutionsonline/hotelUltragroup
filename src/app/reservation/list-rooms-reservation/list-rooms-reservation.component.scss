@@ -1,0 +1,14 @@
+.hotel-list {
+    display: flex;
+    flex-direction: column;
+}
+
+:host ::ng-deep .mat-grid-tile-content {
+    display: block !important;
+    margin: 5px;
+}
+
+:host ::ng-deep .mat-mdc-card {
+    position: relative;
+    height: 90%;
+}

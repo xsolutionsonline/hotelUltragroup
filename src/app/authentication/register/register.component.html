@@ -1,0 +1,88 @@
+<div class="register-form form-container">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title>
+          <img src="logo.png" alt="Logo" width="80" height="80" class="logo">
+          Registrarse
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Nombres</mat-label>
+              <mat-icon matPrefix>person</mat-icon>
+              <input matInput formControlName="firstName"  />
+              <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')" class="error-message">Nombres son obligatorios</mat-error>
+              <mat-error *ngIf="registerForm.get('firstName')?.hasError('minlength')" class="error-message">Nombres deben tener al menos 3 caracteres</mat-error>
+              <mat-error *ngIf="registerForm.get('firstName')?.hasError('maxlength')" class="error-message">Nombres no deben exceder los 50 caracteres</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Apellidos</mat-label>
+              <mat-icon matPrefix>person</mat-icon>
+              <input matInput formControlName="lastName"  />
+              <mat-error *ngIf="registerForm.get('lastName')?.hasError('required')" class="error-message">Apellidos son obligatorios</mat-error>
+              <mat-error *ngIf="registerForm.get('lastName')?.hasError('minlength')" class="error-message">Apellidos deben tener al menos 3 caracteres</mat-error>
+              <mat-error *ngIf="registerForm.get('lastName')?.hasError('maxlength')" class="error-message">Apellidos no deben exceder los 50 caracteres</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="birthDate"  placeholder="dd/MM/yyyy" readonly/>
+              <mat-icon matPrefix>event</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+              <mat-error *ngIf="registerForm.get('birthDate')?.hasError('required')" class="error-message">Fecha de Nacimiento es obligatoria</mat-error>              
+            </mat-form-field>
+          </div>
+  
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Contacto</mat-label>
+              <mat-icon matPrefix>phone</mat-icon>
+              <input matInput  type="number" formControlName="contact"  [attr.maxlength]="10"  (keydown)="onContactKeydown($event)"/>
+              <mat-error *ngIf="registerForm.get('contact')?.hasError('required')" class="error-message">Contacto es obligatorio</mat-error>
+              <mat-error *ngIf="registerForm.get('contact')?.hasError('pattern')" class="error-message">El contacto debe tener máximo 10 dígitos</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email"  />
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error *ngIf="registerForm.get('email')?.hasError('required')" class="error-message">Email es obligatorio</mat-error>
+              <mat-error *ngIf="registerForm.get('email')?.hasError('email')" class="error-message">Formato de email inválido</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="fields-container">
+            <mat-form-field>
+              <mat-label>Contraseña</mat-label>
+              <input matInput [type]="passwordHidden ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="togglePasswordVisibility($event)">
+                <mat-icon>{{ passwordHidden ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-icon matPrefix>lock</mat-icon>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('required')" class="error-message">Contraseña es obligatoria</mat-error>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')" class="error-message">Contraseña debe tener al menos 6 caracteres</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+        </form>
+      
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button routerLink="/login">
+          <p class="register-button">Ya tengo cuenta</p>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  

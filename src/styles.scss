@@ -1,1 +1,89 @@
-/* You can add global styles to this file, and also import other style files */
+$primary-color: #673ab7;
+
+html,
+body {
+  height: 100%;
+  
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.error-message {
+  color: whitesmoke;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.322);
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80vh; 
+}
+
+.form-container-hg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+   
+}
+
+.scroll-container {
+  overflow-y: auto;
+  max-height: 500px; 
+}
+
+
+.form-card {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 2.22);
+  
+}
+
+.mat-card-header {
+  background-color: $primary-color;
+}
+
+.mat-mdc-card-header {
+  padding: 16px  0px;
+  background: linear-gradient(to bottom, $primary-color, #8f508aa3); 
+  color:white
+}
+
+:host ::ng-deep .mat-mdc-card-content {
+  display: block;
+  padding: 16px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4px;
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 8px;
+  justify-content: space-between;
+}
+
+
+.tittle {
+  background-color: #2500807a;
+  color: white;
+  text-align: left;
+  width: 100%;
+  margin: 0; 
+  padding: 20px; 
+}

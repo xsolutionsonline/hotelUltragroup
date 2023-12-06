@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-header>
+        <h2>{{ hotel.name }}</h2>
+    </mat-card-header>
+    <div class="image-slider">
+        <mat-card>
+            <!--<img *ngFor="let image of hotel.images" [src]="" alt="Imagen del hotel" />-->
+        </mat-card>
+    </div>
+
+    <mat-card-content>
+        
+        <p>{{ hotel.description }}</p>
+        <p>{{ hotel.country }}, {{ hotel.department }}, {{ hotel.city }}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="buttons">
+        <button mat-raised-button color="primary" (click)="editarHotel()">Editar</button>       
+    </mat-card-actions>
+</mat-card>

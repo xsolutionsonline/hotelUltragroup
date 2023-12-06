@@ -1,0 +1,19 @@
+<h2>Habitaciones Disponibles</h2>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ room.type }} - Habitación {{ data.room.location.roomNumber }}</mat-card-title>
+  </mat-card-header>
+
+<!--  <img mat-card-image src="...">-->
+
+  <mat-card-content>
+    <p><strong>camas</strong> {{ data.room.numberOfBeds }} </p>
+    <p><strong>Costo Base:</strong> {{ data.room.baseCost | currency }}</p>
+    <p><strong>Impuestos:</strong> {{ data.room.taxes | currency }}</p>    
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="reserveRoom()">Reservar</button>
+    <button mat-button (click)="dialogRef.close()">Cerrar</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,15 @@
+<mat-sidenav opened="true" class="sidenav" mode="side">
+  <mat-nav-list>
+    <ng-container *ngIf="isUser; else soloReservas">
+      <a mat-list-item routerLink="/register-hotel"><h1 class="item-list">Crear Hotel</h1></a>
+      <a mat-list-item routerLink="/list-hotels"><h1 class="item-list">Ver Hoteles</h1></a>
+      <a mat-list-item routerLink="/reservation"><h1 class="item-list">Ver Reservas</h1></a>
+    </ng-container>
+    <ng-template #soloReservas>
+  
+    </ng-template>
+    <a mat-list-item routerLink="/list-hotels-reservation"><h1 class="item-list">Reservas</h1></a>
+    <a mat-list-item routerLink="/login"><h1 class="item-list">Inicia Sesión</h1></a>
+   
+  </mat-nav-list>
+</mat-sidenav>
